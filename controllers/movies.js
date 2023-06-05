@@ -37,12 +37,38 @@ const getMoviebyId = async (request,response) =>  {
 
 
 
-const Updatemovie = (request , response ) => {
-    response.send("updated movie")
+const Updatemovie = async (request , response ) => {
+    // response.send("updated movie")
+    if (request.body.title != null){
+        response.movie.title = request.body.title
+    }
+    if (request.body.year != null){
+        response.movie.year = request.body.year
+    }
+    if (request.body.genre != null){
+        response.movie.genre = request.body.genre
+    }
+
+    
+    try{
+        const Updatemovie = await response.movie.save() // saving the details sent by user
+        response.status(201).json(Updatemovie)
+    }
+    catch (error){
+        response.status(400).json({message:error.message})
+    }
+
 }
 
-const Deletemovie = (request, response ) => {
-    response.send("delete movies")
+const Deletemovie = async (request, response ) => {
+    // response.send("delete movies")
+    try{
+        await response.movie.deleteOne()
+        response.json({message:`Deleted ${response.movie.title} `})
+    }
+    catch(error){
+        response.status(500).json({message:error.message})
+    }
 }
 
 

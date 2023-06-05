@@ -20,4 +20,4 @@ app.get(('/'), (request, response) => {
     response.send("welcome to my Movie Database")
 })
 
-app.listen(PORT, console.log('listening in port '))
+app.listen(PORT, console.log('listening in port http://localhost:3939/'))
